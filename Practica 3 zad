@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int main() {
+int n;
+printf("Введите размер массива: ");
+scanf("%d", &n);
+int A[n];
+printf("Введите элементы массива: ");
+for (int i = 0; i < n; i++) {
+scanf("%d", (A + i));
+}
+int *min = A;
+int max = A;
+for (int i = 0; i < n; i++) {
+if ((A + i) < min) {
+min = A + i;
+}
+if ((A + i) >= *max) {
+max = A + i;
+}
+}
+int *start, *end;
+if (min < max) {
+start = min + 1;
+end = max;
+} else {
+start = max + 1;
+end = min;
+}
+long long product = 1;
+for (int *p = start; p < end; p++) {
+product *= *p;
+}
+printf("Произведение элементов, расположенных между первым по порядку минимальным и последним по порядку максимальным элементами массива: %lld\n", product);
+return 0;
+}
+
+
+
+
+
