@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+int main() {
+int num, count = 0;
+
+scss
+Copy code
+printf("Введите числа последовательности, окончание - число, кратное 4:\n");
+
+scanf("%d", &num);
+
+while(num % 4 != 0) {
+    if(num < 0 && num % 2 != 0) {
+        count++;
+    }
+    scanf("%d", &num);
+}
+
+printf("Количество отрицательных нечетных чисел: %d", count);
+
+return 0;
+}
