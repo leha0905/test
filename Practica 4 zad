@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+int main() {
+char word[100];
+printf("Enter a word: ");
+fgets(word, 100, stdin);
+
+int i = 0;
+while(word[i] != '\0') {
+    if(islower(word[i])) {
+        if(word[i] == 'y') {
+            word[i] = 'z';
+        } else {
+            word[i] = word[i] + 1;
+        }
+    }
+    i++;
+}
+
+printf("Result: %s", word);
+return 0;
+}
