@@ -1,0 +1,78 @@
+
+#ifndef ARRAY_PROCESSING_H
+#define ARRAY_PROCESSING_H
+
+void process_array(int* arr, int size, int& product, int& min_index, int& max_index);
+
+
+#include "array_processing.h"
+
+void process_array(int* arr, int size, int& product, int& min_index, int& max_index)
+{
+    min_index = 0;
+    max_index = 0;
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[min_index]) {
+            min_index = i;
+        }
+        if (arr[i] > arr[max_index]) {
+            max_index = i;
+        }
+    }
+    
+    product = 1;
+    int start = std::min(min_index, max_index);
+    int end = std::max(min_index, max_index);
+    
+    for (int i = start + 1; i < end; i++) {
+        product *= arr[i];
+    }
+}
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "array_processing.h"
+
+int main(int argc, char* argv[])
+{
+    if (argc != 2) {
+        std::cerr << "Usage: " << argv[0] << " input_file" << std::endl;
+        return 1;
+    }
+
+    std::string input_file(argv[1]);
+    std::ifstream ifs(input_file + ".in");
+    if (!ifs.is_open()) {
+        std::cerr << "Failed to open input file: " << input_file << std::endl;
+        return 1;
+    }
+
+    int size;
+    ifs >> size;
+
+    int* arr = new int[size];
+    for (int i = 0; i < size; i++) {
+        ifs >> arr[i];
+    }
+
+    ifs.close();
+
+    int product, min_index, max_index;
+    process_array(arr, size, product, min_index, max_index);
+
+    std::ofstream ofs(input_file + ".out");
+    if (!ofs.is_open()) {
+        std::cerr << "Failed to open output file: " << input_file << std::endl;
+        delete[] arr;
+        return 1;
+    }
+
+    ofs << product << std::endl;
+    ofs.close();
+
+    delete[] arr;
+
+    return 0;
+}
